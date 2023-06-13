@@ -43,30 +43,29 @@
 }
 .profile__edit-button {
     margin: 15px 0 34px 18px;
-    padding: 7px;
     width: 24px;
     height: 24px;
+    padding: 0;
     appearance: none;
     border: 1px solid white;
     background-color: black;
-}
-.profile__edit-button-image {
-    width: 10px;
-    height: 10px;
+    background-image: url("../../image/profile/profile__edit-button-image.svg");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 10px 10px;
 }
 .profile__add-button {
     width: 150px;
     height: 50px;
-    margin: auto 0 auto 244px;
+    margin: auto 0 auto 248px;
     padding: 0;
     appearance: none;
     border: 2px solid white;
     background-color: black;
-}
-.profile__add-button-image {
-    width: 22px;
-    height: 22px;
-    margin: auto;
+    background-image: url("../../image/profile/profile__add-button-image.svg");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 22px 22px;
 }
 @media screen and (max-width: 992px){
     .profile {
@@ -100,18 +99,11 @@
         margin: 8px 19px 28px 10px;
         width: 18px;
         height: 18px;
-    }
-    .profile__edit-button-image {
-        width: 8px;
-        height: 8px;
-        margin: 5.25px 5.25px 5.25px 5.25px;
+        background-size: 7.5px 7.5px;
     }
     .profile__add-button {
         width: 100%;
         margin: 36px 0 0 0;
-    }
-    .profile__add-button-image {
-        width: 16px;
-        height: 16px;
+        background-size: 16px 16px;
     }
 }

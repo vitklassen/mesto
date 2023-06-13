@@ -15,7 +15,7 @@
     box-sizing: border-box;
     flex-direction: column;
     border-radius: 10px;
-    max-width: 430px;
+    width: 430px;
     background-color: white;
     font-family: 'Inter', Arial, sans-serif;
     font-style: normal;
@@ -63,4 +63,23 @@
     margin: 0 auto 37px auto;
     border-radius: 2px;
     border: none;
+}
+.popUp__close-button {
+    position: absolute;
+    top: 155px;
+    right: 385px;
+    left: 836px;
+    width: 32px;
+    height: 32px;
+    background-color: rgba(0, 0, 0, 0);
+    background-image: url("../../image/popup/popup__close-button.svg");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 100%;
+    padding: 0;
+    appearance: none;
+    border: none;
+}
+.popup_opened {
+    display: flex;
 }
