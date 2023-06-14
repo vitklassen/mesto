@@ -6,23 +6,25 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Mesto</title>
 </head>
-<body class="page">
+<body class="page root">
   <header class="header">
     <img class="logo" src="./image/logo/header-logo.svg" alt="Логотип">
   </header>
   <main class="content">
     <section class="profile">
-      <img class="profile__avatar" src="./image/profile/profile__avatar.jpg" alt="Фото">
-      <div class="profile__info">
-        <div class="profile__user-info">
-            <p class="profile__name">Жак-Ив Кусто</p>
-            <p class="profile__about-user">Исследователь океана</p>
+      <div class="profile__user">
+        <img class="profile__avatar" src="./image/profile/profile__avatar.jpg" alt="Фото">
+        <div class="profile__info">
+          <div class="profile__user-info">
+              <p class="profile__name">Жак-Ив Кусто</p>
+              <p class="profile__about-user">Исследователь океана</p>
+          </div>
+          <button class="profile__edit-button button-style" type="button"></button>
         </div>
-        <button class="profile__edit-button button-style" type="button"></button>
       </div>
       <button class="profile__add-button button-style"></button>
     </section>
-    <section class="elements">
+    <section class="elements like-root">
       <div class="elements__element">
         <img class="elements__photo" src="./image/elements/elements__kar.jpg" alt="Красивое место">
         <div class="elements__description">
@@ -70,14 +72,14 @@
   <footer class="footer">
     <p class="footer__author">&copy; 2023 Mesto Russia</p>
   </footer>
-  <div class="popUp">
-    <div class="popUp__container">
-      <button class="popUp__close-button button-style" type="button"></button>
-      <h2 class="popUp__title">Редактировать профиль</h2>
-      <form class="form">
-        <input class="form__input" type="text" name="firstname" placeholder="Ваше имя">
-        <input class="form__input" type="text" name="user-info" placeholder="О себе">
-        <button class="form__save-button button-style" type="submit">Сохранить</button>
+  <div class="popup">
+    <div class="popup__container">
+      <button class="popup__close-button button-style" type="button"></button>
+      <h2 class="popup__title">Редактировать профиль</h2>
+      <form class="popup__form">
+        <input class="popup__input popup__input_name_firstname" type="text" name="firstname" placeholder="Ваше имя">
+        <input class="popup__input popup__input_name_user-info" type="text" name="user-info" placeholder="О себе">
+        <button class="popup__save-button button-style" type="submit">Сохранить</button>
       </form>
     </div>
   </div>

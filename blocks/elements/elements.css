@@ -58,3 +58,8 @@
 .elements__like-button_active {
     background-image: url("../../image/elements/elements__like-button_active.svg");
 }
+@media screen and (max-width: 425px){
+    .elements {
+        padding-top: 36px;
+    }
+}

@@ -3,10 +3,15 @@
     box-sizing: border-box;
     max-width: 880px;
     margin: 0 auto;
+    padding: 0;
     padding-top: 40px;
     font-family: 'Inter', Arial, sans-serif;
     font-style: normal;
     color: white;
+    justify-content: space-between;
+}
+.profile__user {
+    display: flex;
 }
 .profile__avatar {
     margin: 0;
@@ -33,6 +38,9 @@
     font-weight: 500;
     font-size: 42px;
     line-height: 48px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
 }
 .profile__about-user {
     margin: 0;
@@ -40,6 +48,9 @@
     font-weight: 400;
     font-size: 18px;
     line-height: 22px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
 }
 .profile__edit-button {
     margin: 15px 0 34px 18px;
@@ -57,7 +68,7 @@
 .profile__add-button {
     width: 150px;
     height: 50px;
-    margin: auto 0 auto 248px;
+    margin: auto 0;
     padding: 0;
     appearance: none;
     border: 2px solid white;
@@ -71,6 +82,9 @@
     .profile {
         padding-top: 42px;
         max-width: 282px;
+        flex-direction: column;
+    }
+    .profile__user {
         flex-direction: column;
     }
     .profile__avatar {
