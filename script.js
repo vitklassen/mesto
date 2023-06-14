@@ -5,14 +5,20 @@ let like = root.querySelector('.like-root');
 let formElement = popup.querySelector('.popup__form');
 let nameInput = formElement.querySelector('.popup__input_name_firstname');
 let jobInput = formElement.querySelector('.popup__input_name_user-info');
+let nameUser = root.querySelector('.profile__name');
+let jobUser = root.querySelector('.profile__about-user');
 
-function openPopup(popup) {
-    popup.classList.add('popup_opened');
+function openPopup(modal) {
+    modal.classList.add('popup_opened');
 }
-function closePopup(evt) {
+function closePopup(modal) {
+    modal.classList.remove('popup_opened');
+}
+function closePopupClickButtton(evt) {
     const closeBtn = evt.target;
     if (closeBtn.classList.contains('popup__close-button')) {
-        closeBtn.closest('.popup').classList.remove('popup_opened');
+        const currentPopup = closeBtn.closest('.popup');
+        closePopup(currentPopup);
     }
 }
 function addLike(evt) {
@@ -22,11 +28,22 @@ function addLike(evt) {
     }
 }
 function setPopupInputValue() {
-
+    nameInput.value = nameUser.textContent;
+    jobInput.value = jobUser.textContent;
 }
-
+function setNodeTextValue() {
+    nameUser.textContent = nameInput.value;
+    jobUser.textContent = jobInput.value;
+}
+function formSubmitHandler(evt) {
+    evt.preventDefault();
+    setNodeTextValue();
+    closePopup(popup);
+}
 editBtn.addEventListener('click', function () {
+    setPopupInputValue();
     openPopup(popup);
 });
-root.addEventListener('click', closePopup);
+root.addEventListener('click', closePopupClickButtton);
 like.addEventListener('click', addLike);
+formElement.addEventListener('submit', formSubmitHandler);
