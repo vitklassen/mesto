@@ -1,12 +1,12 @@
-let root = document.querySelector('.root');
+let root = document.querySelector('.page');
 let editBtn = root.querySelector('.profile__edit-button');
 let popup = root.querySelector('.popup');
-let like = root.querySelector('.like-root');
+let like = root.querySelector('.elements');
 let formElement = popup.querySelector('.popup__form');
 let nameInput = formElement.querySelector('.popup__input_name_firstname');
 let jobInput = formElement.querySelector('.popup__input_name_user-info');
 let nameUser = root.querySelector('.profile__name');
-let jobUser = root.querySelector('.profile__about-user');
+let jobUser = root.querySelector('.profile__job');
 
 function openPopup(modal) {
     modal.classList.add('popup_opened');

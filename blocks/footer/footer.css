@@ -8,13 +8,6 @@
     font-family: 'Inter', Arial, sans-serif;
     font-style: normal;
 }
-.footer__author {
-    margin: 0;
-    padding: 0;
-    font-weight: 400;
-    font-size: 18px;
-    line-height: 22px;
-}
 @media screen and (max-width: 992px){
     .footer {
         max-width: 88.125%;
@@ -24,9 +17,5 @@
     .footer {
         padding-top: 48px;
         padding-bottom: 36px;
-    }
-    .footer__author {
-        font-size: 14px;
-        line-height: 17px;
     }
 }
