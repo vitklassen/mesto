@@ -12,6 +12,11 @@
     margin-top: 48px;
     border: none;
 }
+.popup__save-button:hover {
+    opacity: 0.8;
+    transition: opacity 0.1s linear;
+    cursor: pointer;
+}
 @media screen and (max-width: 576px){
     .popup__save-button {
         width: 238px;

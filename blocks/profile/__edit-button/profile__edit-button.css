@@ -11,6 +11,11 @@
     background-position: center;
     background-size: 10px 10px;
 }
+.profile__edit-button:hover {
+    opacity: 0.6;
+    transition: opacity 0.1s linear;
+    cursor: pointer;
+}
 @media screen and (max-width: 992px){
     .profile__edit-button {
         margin: 8px 19px 28px 10px;

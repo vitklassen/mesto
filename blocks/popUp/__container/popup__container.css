@@ -4,17 +4,17 @@
     box-sizing: border-box;
     border-radius: 10px;
     max-width: 430px;
-    min-height: 330px;
     background-color: white;
     font-family: 'Inter', Arial, sans-serif;
     font-style: normal;
     color: black;
     padding: 34px 36px 37px 36px;
+    margin-top: 195px;
 }
 @media screen and (max-width: 576px){
     .popup__container {
         max-width: 282px;
-        min-height: 322px;
-        padding: 25px 22px;
+        padding: 25px 22px 25px 22px;
+        margin-top: 123px;
     }
 }
