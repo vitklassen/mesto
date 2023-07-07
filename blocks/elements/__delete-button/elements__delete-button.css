@@ -7,7 +7,7 @@
     background: rgba(0, 0, 0, 0);
     position: absolute;
     top: 20px;
-    right: 15px;
+    right: 20px;
     background-image: url("../../../image/elements/elements__delete-button.svg");
     background-repeat: no-repeat;
     background-position: center;
@@ -16,7 +16,7 @@
 } 
 
 .elements__delete-button:hover {
-    opacity: 0.8;
+    opacity: 0.6;
     transition: opacity 0.1s linear;
     cursor: pointer;
 }
