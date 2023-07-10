@@ -12,6 +12,9 @@ let jobUser = root.querySelector('.profile__job');
 let nameCardInput = formAddElement.querySelector('.popup__input_name_name');
 let linkCardInput = formAddElement.querySelector('.popup__input_name_link');
 let cardElements = root.querySelector('.elements');
+let popupCard = root.querySelector('.popup-card');
+let popupCardPhoto = popupCard.querySelector('.popup-card__photo');
+let popupCardTitle = popupCard.querySelector('.popup-card__title');
 let templateElement = root.querySelector('#template-elements__element').content.querySelector('.elements__element');
 const initialCards = [
     {
@@ -41,15 +44,25 @@ const initialCards = [
   ]; 
 
 function openPopup(modal) {
-    modal.classList.add('popup_opened');
+    if (modal.classList.contains('popup')) {
+      modal.classList.add('popup_opened');
+    }
+    else {
+      modal.classList.add('popup-card_opened');
+    }
 }
 function closePopup(modal) {
+  if (modal.classList.contains('popup')) {
     modal.classList.remove('popup_opened');
+  }
+  else {
+    modal.classList.remove('popup-card_opened');
+  }
 }
 function closePopupClickButtton(evt) {
     const closeBtn = evt.target;
-    if (closeBtn.classList.contains('popup__close-button')) {
-        const currentPopup = closeBtn.closest('.popup');
+    if (closeBtn.classList.contains('popup__close-button') || closeBtn.classList.contains('popup-card__close-button')) {
+        const currentPopup = closeBtn.closest('.popup_option_close');
         closePopup(currentPopup);
     }
 }
@@ -83,7 +96,6 @@ function sendingCardData (evt) {
   renderCards(initialCard, cardElements);
   closePopup(addPopup);
 }
-
 function createCards (input) {
   const elElement = templateElement.cloneNode(true);
   const photoElement = elElement.querySelector('.elements__photo');
@@ -103,6 +115,12 @@ function createCards (input) {
     else {
       like.classList.add('elements__like-button_active');
     }
+  });
+  
+  photoElement.addEventListener('click', function() {
+    popupCardPhoto.src = input.link;
+    popupCardTitle.textContent = input.name;
+    openPopup(popupCard);
   });
   return elElement;
 }
