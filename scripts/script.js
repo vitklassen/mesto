@@ -61,9 +61,13 @@ function closePopup(modal) {
 }
 function closePopupClickButtton(evt) {
     const closeBtn = evt.target;
-    if (closeBtn.classList.contains('popup__close-button') || closeBtn.classList.contains('popup-card__close-button')) {
-        const currentPopup = closeBtn.closest('.popup_option_close');
+    if (closeBtn.classList.contains('popup__close-button')) {
+        const currentPopup = closeBtn.closest('.popup');
         closePopup(currentPopup);
+    }
+    else {
+      const currentPopup = closeBtn.closest('.popup-card');
+      closePopup(currentPopup);
     }
 }
 function setPopupInputValue() {
