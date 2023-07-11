@@ -1,7 +1,7 @@
 .elements {
     display: grid;
     box-sizing: border-box;
-    grid-template-columns: repeat(auto-fit, minmax(282px,1fr));
+    grid-template-columns: repeat(auto-fill, minmax(282px, 1fr));
     justify-items: center;
     column-gap: 17px;
     row-gap: 20px;
@@ -9,8 +9,14 @@
     margin: 0 auto;
     padding-top: 51px;
 }
-@media screen and (max-width: 425px){
+@media screen and (max-width: 992px) {
     .elements {
+        max-width: 581px;
+    }
+}
+@media screen and (max-width: 600px){
+    .elements {
+        max-width: 282px;
         padding-top: 36px;
     }
 }
