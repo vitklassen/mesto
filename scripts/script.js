@@ -1,10 +1,10 @@
 const root = document.querySelector('.page');
-const editBtn = root.querySelector('.profile__edit-button');
-const addBtn = root.querySelector('.profile__add-button');
-const editPopup = root.querySelector('.popup_type_edit');
-const formEditElement = editPopup.querySelector('.popup__form');
-const addPopup = root.querySelector('.popup_type_add');
-const formAddElement = addPopup.querySelector('.popup__form');
+const buttonOpenEditProfilePopup = root.querySelector('.profile__edit-button');
+const buttonOpenAddCardPopup = root.querySelector('.profile__add-button');
+const popupEditProfile = root.querySelector('.popup_type_edit');
+const formEditElement = popupEditProfile.querySelector('.popup__form');
+const popupAddCard = root.querySelector('.popup_type_add');
+const formAddElement = popupAddCard.querySelector('.popup__form');
 const nameInput = formEditElement.querySelector('.popup__input_name_firstname');
 const jobInput = formEditElement.querySelector('.popup__input_name_user-info');
 const nameUser = root.querySelector('.profile__name');
@@ -79,26 +79,26 @@ function setNodeTextValue() {
     jobUser.textContent = jobInput.value;
 }
 function setDataNewCard() {
-  const Card = [
+  const cardData = [
     {
       name: '',
       link: ''
     }
   ];
-  Card.name = nameCardInput.value;
-  Card.link = linkCardInput.value;
-  return Card;
+  cardData.name = nameCardInput.value;
+  cardData.link = linkCardInput.value;
+  return cardData;
 }
-function formSubmitHandler(evt) {
+function submitEditProfileForm(evt) {
     evt.preventDefault();
     setNodeTextValue();
-    closePopup(editPopup);
+    closePopup(popupEditProfile);
 }
-function sendingCardData (evt) {
+function submitAddCardForm (evt) {
   evt.preventDefault();
   const initialCard = setDataNewCard();
   renderCards(initialCard, cardElements);
-  closePopup(addPopup);
+  closePopup(popupAddCard);
 }
 function createCards (input) {
   const elElement = templateElement.cloneNode(true);
@@ -107,7 +107,7 @@ function createCards (input) {
   const btnDelElement = elElement.querySelector('.elements__delete-button');
   const likeBtn = elElement.querySelector('.elements__like-button');
   photoElement.src = input.link;
-  photoElement.alt = 'Красивое место';
+  photoElement.alt = input.name;
   titleElement.textContent = input.name;
   btnDelElement.addEventListener('click', function() {
     elElement.remove();
@@ -124,7 +124,7 @@ function createCards (input) {
   
   photoElement.addEventListener('click', function() {
     popupCardPhoto.src = input.link;
-    popupCardPhoto.alt = 'Красивое место';
+    popupCardPhoto.alt = input.name;
     popupCardTitle.textContent = input.name;
     openPopup(popupCard);
   });
@@ -137,13 +137,13 @@ function renderCards (data, container) {
 initialCards.forEach(function(input) {
   renderCards(input, cardElements);
 });
-editBtn.addEventListener('click', function () {
+buttonOpenEditProfilePopup.addEventListener('click', function () {
   setPopupInputValue();
-  openPopup(editPopup);
+  openPopup(popupEditProfile);
 });
-addBtn.addEventListener('click', function() {
-openPopup(addPopup);
+buttonOpenAddCardPopup.addEventListener('click', function() {
+  openPopup(popupAddCard);
 })
 root.addEventListener('click', closePopupClickButtton);
-formEditElement.addEventListener('submit', formSubmitHandler);
-formAddElement.addEventListener('submit', sendingCardData);
+formEditElement.addEventListener('submit', submitEditProfileForm);
+formAddElement.addEventListener('submit', submitAddCardForm);
