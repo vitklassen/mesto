@@ -12,9 +12,9 @@ const jobUser = root.querySelector('.profile__job');
 const nameCardInput = formAddElement.querySelector('.popup__input_name_name');
 const linkCardInput = formAddElement.querySelector('.popup__input_name_link');
 const cardElements = root.querySelector('.elements');
-const popupCard = root.querySelector('.popup-card');
-const popupCardPhoto = popupCard.querySelector('.popup-card__photo');
-const popupCardTitle = popupCard.querySelector('.popup-card__title');
+const popupCard = root.querySelector('.popup_type_card');
+const popupCardPhoto = popupCard.querySelector('.popup__photo');
+const popupCardTitle = popupCard.querySelector('.popup__title');
 const templateElement = root.querySelector('#template-elements__element').content.querySelector('.elements__element');
 const initialCards = [
     {
@@ -44,30 +44,16 @@ const initialCards = [
   ]; 
 
 function openPopup(modal) {
-    if (modal.classList.contains('popup')) {
-      modal.classList.add('popup_opened');
-    }
-    else {
-      modal.classList.add('popup-card_opened');
-    }
+  modal.classList.add('popup_opened');
 }
 function closePopup(modal) {
-  if (modal.classList.contains('popup')) {
-    modal.classList.remove('popup_opened');
-  }
-  else {
-    modal.classList.remove('popup-card_opened');
-  }
+  modal.classList.remove('popup_opened');
 }
 function closePopupClickButtton(evt) {
     const closeBtn = evt.target;
     if (closeBtn.classList.contains('popup__close-button')) {
         const currentPopup = closeBtn.closest('.popup');
         closePopup(currentPopup);
-    }
-    else {
-      const currentPopup = closeBtn.closest('.popup-card');
-      closePopup(currentPopup);
     }
 }
 function setPopupInputValue() {
@@ -98,6 +84,7 @@ function submitAddCardForm (evt) {
   evt.preventDefault();
   const initialCard = setDataNewCard();
   renderCards(initialCard, cardElements);
+  evt.target.reset();
   closePopup(popupAddCard);
 }
 function createCards (input) {
@@ -112,14 +99,9 @@ function createCards (input) {
   btnDelElement.addEventListener('click', function() {
     elElement.remove();
   });
-  likeBtn.addEventListener('click', function(evt) {
-    const like = evt.target;
-    if (like.classList.contains('elements__like-button_active')) {
-      like.classList.remove('elements__like-button_active');
-    }
-    else {
-      like.classList.add('elements__like-button_active');
-    }
+ 
+  likeBtn.addEventListener('click', function () {
+    likeBtn.classList.toggle('elements__like-button_active');
   });
   
   photoElement.addEventListener('click', function() {
