@@ -84,8 +84,8 @@ function submitAddCardForm (evt) {
   evt.preventDefault();
   const initialCard = setDataNewCard();
   renderCards(initialCard, cardElements);
-  evt.target.reset();
   closePopup(popupAddCard);
+  evt.target.reset();
 }
 function createCards (input) {
   const elElement = templateElement.cloneNode(true);
