@@ -34,8 +34,8 @@
       <button class="popup__close-button" type="button"></button>
       <h2 class="popup__title popup__title_type_edit">Редактировать профиль</h2>
       <form class="popup__form" name="userForm" method="post">
-        <input class="popup__input popup__input_name_firstname" type="text" name="firstname" placeholder="Ваше имя">
-        <input class="popup__input popup__input_name_user-info" type="text" name="user-info" placeholder="О себе">
+        <input class="popup__input popup__input_name_firstname" type="text" name="firstname" placeholder="Ваше имя" required minlength="2" maxlength="40">
+        <input class="popup__input popup__input_name_user-info" type="text" name="user-info" placeholder="О себе" required minlength="2" maxlength="200">
         <button class="popup__save-button button-style" type="submit">Сохранить</button>
       </form>
     </div>
@@ -69,5 +69,6 @@
     </div>
   </template>
   <script src="./scripts/script.js"></script>
+  <script src="./scripts/validate.js"></script>
 </body>
 </html>
