@@ -56,6 +56,20 @@ function closePopupClickButtton(evt) {
         closePopup(currentPopup);
     }
 }
+function closePopupClickEscape(evt) {
+    if(evt.key === 'Escape') {
+    const popupList = root.querySelectorAll('.popup');
+    popupList.forEach(function(popupElement) {
+      closePopup(popupElement);
+    });
+    }
+}
+function closePopupClickOverlay(evt) {
+  const closeOverlay = evt.target;
+  if(closeOverlay.classList.contains('popup')) {
+    closePopup(closeOverlay);
+  }
+}
 function setPopupInputValue() {
     nameInput.value = nameUser.textContent;
     jobInput.value = jobUser.textContent;
@@ -127,5 +141,7 @@ buttonOpenAddCardPopup.addEventListener('click', function() {
   openPopup(popupAddCard);
 })
 root.addEventListener('click', closePopupClickButtton);
+root.addEventListener('click', closePopupClickOverlay);
+root.addEventListener('keydown', closePopupClickEscape);
 formEditElement.addEventListener('submit', submitEditProfileForm);
 formAddElement.addEventListener('submit', submitAddCardForm);
