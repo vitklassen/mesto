@@ -1,7 +1,7 @@
 .popup__input {
     display: block;
     font-family: inherit;
-    max-width: 358px;
+    width: 100%;
     padding: 0;
     padding-bottom: 9px;
     border: none;
@@ -13,10 +13,4 @@
     font-weight: 400;
     font-size: 14px;
     line-height: 17px;
-}
-
-@media screen and (max-width: 576px){
-    .popup__input {
-        max-width: 238px;
-    }
 }
