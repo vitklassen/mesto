@@ -49,10 +49,14 @@ function hideInputError(formElement, inputElement) {
   errorElement.textContent = "1";
 }
 
+function disableSubmitButton(buttonElement) {
+  buttonElement.classList.add(settingsOptions.inactiveButtonClass);
+  buttonElement.setAttribute("disabled", "");
+}
+
 function toggleButtonState(inputList, buttonElement) {
   if (hasInvalidInput(inputList)) {
-    buttonElement.classList.add(settingsOptions.inactiveButtonClass);
-    buttonElement.setAttribute("disabled", "");
+    disableSubmitButton(buttonElement);
   } else {
     buttonElement.classList.remove(settingsOptions.inactiveButtonClass);
     buttonElement.removeAttribute("disabled");
