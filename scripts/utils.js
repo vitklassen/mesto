@@ -9,7 +9,7 @@ export function closePopup(modal) {
 }
 export function closePopupClickEscape(evt) {
   if (evt.key === "Escape") {
-    const popupElement = root.querySelector(".popup_opened");
+    const popupElement = document.querySelector(".popup_opened");
     closePopup(popupElement);
   }
 }
