@@ -1,4 +1,4 @@
-import { disableSubmitButton } from "./index.js";
+import { disableSubmitButton } from "./utils.js";
 export class FormValidator {
   constructor(data, form) {
     this._formSelector = data.formSelector;

@@ -17,31 +17,18 @@ const buttonSave = popupAddCard.querySelector(".popup__save-button");
 
 import { Card } from "./Card.js";
 import { FormValidator } from "./FormValidator.js";
-import { initialCards } from "./initialCards.js";
-import { settingsOptions } from "./settingsOptions.js";
+import { initialCards, settingsOptions } from "./data.js";
+import {
+  openPopup,
+  closePopup,
+  closePopupClickEscape,
+  disableSubmitButton,
+} from "./utils.js";
 
 const formList = Array.from(
   document.querySelectorAll(settingsOptions.formSelector)
 );
 
-export function openPopup(modal) {
-  modal.classList.add("popup_opened");
-  root.addEventListener("keydown", closePopupClickEscape);
-}
-function closePopup(modal) {
-  modal.classList.remove("popup_opened");
-  root.removeEventListener("keydown", closePopupClickEscape);
-}
-function closePopupClickEscape(evt) {
-  if (evt.key === "Escape") {
-    const popupElement = root.querySelector(".popup_opened");
-    closePopup(popupElement);
-  }
-}
-export function disableSubmitButton(buttonElement) {
-  buttonElement.classList.add(settingsOptions.inactiveButtonClass);
-  buttonElement.setAttribute("disabled", "");
-}
 function handleCloseByClick(evt) {
   if (
     evt.target === evt.currentTarget ||
