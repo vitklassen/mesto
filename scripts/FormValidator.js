@@ -1,4 +1,3 @@
-import { disableSubmitButton } from "./utils.js";
 export class FormValidator {
   constructor(data, form) {
     this._formSelector = data.formSelector;
@@ -8,6 +7,8 @@ export class FormValidator {
     this._inputErrorClass = data.inputErrorClass;
     this._errorClass = data.errorClass;
     this._form = form;
+    this._inputList = Array.from(form.querySelectorAll(data.inputSelector));
+    this._buttonElement = form.querySelector(data.submitButtonSelector);
   }
   enableValidation() {
     this._setEventListeners();
@@ -16,28 +17,28 @@ export class FormValidator {
     this._form.addEventListener("submit", function (evt) {
       evt.preventDefault();
     });
-    const inputList = Array.from(
-      this._form.querySelectorAll(this._inputSelector)
-    );
-    const buttonElement = this._form.querySelector(this._submitButtonSelector);
-    this._toggleButtonState(inputList, buttonElement);
-    inputList.forEach(inputElement => {
+    this._toggleButtonState();
+    this._inputList.forEach((inputElement) => {
       inputElement.addEventListener("input", () => {
         this._checkInputValidity(inputElement);
-        this._toggleButtonState(inputList, buttonElement);
+        this._toggleButtonState();
       });
     });
   }
-  _toggleButtonState(inputList, buttonElement) {
-    if (this._hasInvalidInput(inputList)) {
-      disableSubmitButton(buttonElement);
+  _toggleButtonState() {
+    if (this._hasInvalidInput()) {
+      this.disableSubmitButton();
     } else {
-      buttonElement.classList.remove(this._inactiveButtonClass);
-      buttonElement.removeAttribute("disabled");
+      this._buttonElement.classList.remove(this._inactiveButtonClass);
+      this._buttonElement.removeAttribute("disabled");
     }
   }
-  _hasInvalidInput(inputList) {
-    return inputList.some(function (item) {
+  disableSubmitButton() {
+    this._buttonElement.classList.add(this._inactiveButtonClass);
+    this._buttonElement.setAttribute("disabled", "");
+  }
+  _hasInvalidInput() {
+    return this._inputList.some(function (item) {
       return !item.validity.valid;
     });
   }

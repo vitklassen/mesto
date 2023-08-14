@@ -13,17 +13,11 @@ const jobUser = root.querySelector(".profile__job");
 const nameCardInput = formAddElement.querySelector(".popup__input_name_name");
 const linkCardInput = formAddElement.querySelector(".popup__input_name_link");
 const cardElements = root.querySelector(".elements");
-const buttonSave = popupAddCard.querySelector(".popup__save-button");
 
 import { Card } from "./Card.js";
 import { FormValidator } from "./FormValidator.js";
 import { initialCards, settingsOptions } from "./data.js";
-import {
-  openPopup,
-  closePopup,
-  closePopupClickEscape,
-  disableSubmitButton,
-} from "./utils.js";
+import { openPopup, closePopup } from "./utils.js";
 
 const formList = Array.from(
   document.querySelectorAll(settingsOptions.formSelector)
@@ -66,15 +60,19 @@ function submitAddCardForm(evt) {
   const initialCard = new Card(setDataNewCard(), "#template-elements__element");
   renderCards(initialCard.createCard(), cardElements);
   closePopup(popupAddCard);
-  disableSubmitButton(buttonSave);
+  const newValidityForm = new FormValidator(settingsOptions, document.querySelector('.popup__form_type_add'));
+  newValidityForm.disableSubmitButton();
   evt.target.reset();
 }
 function renderCards(item, container) {
   container.prepend(item);
 }
+function createObjectCard(item, templateSelector) {
+  const newCard = new Card(item, templateSelector);
+  return newCard.createCard();
+}
 initialCards.forEach(function (item) {
-  const newCard = new Card(item, "#template-elements__element");
-  renderCards(newCard.createCard(), cardElements);
+  renderCards(createObjectCard(item, "#template-elements__element"), cardElements);
 });
 buttonOpenEditProfilePopup.addEventListener("click", function () {
   setPopupInputValue();
