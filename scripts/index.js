@@ -19,9 +19,10 @@ import { FormValidator } from "./FormValidator.js";
 import { initialCards, settingsOptions } from "./data.js";
 import { openPopup, closePopup } from "./utils.js";
 
-const formList = Array.from(
-  document.querySelectorAll(settingsOptions.formSelector)
-);
+const newValidityEditForm = new FormValidator(settingsOptions, formEditElement);
+newValidityEditForm.enableValidation();
+const newValidityAddForm = new FormValidator(settingsOptions, formAddElement);
+newValidityAddForm.enableValidation();
 
 function handleCloseByClick(evt) {
   if (
@@ -60,8 +61,7 @@ function submitAddCardForm(evt) {
   const initialCard = new Card(setDataNewCard(), "#template-elements__element");
   renderCards(initialCard.createCard(), cardElements);
   closePopup(popupAddCard);
-  const newValidityForm = new FormValidator(settingsOptions, document.querySelector('.popup__form_type_add'));
-  newValidityForm.disableSubmitButton();
+  newValidityAddForm.disableSubmitButton();
   evt.target.reset();
 }
 function renderCards(item, container) {
@@ -72,7 +72,10 @@ function createObjectCard(item, templateSelector) {
   return newCard.createCard();
 }
 initialCards.forEach(function (item) {
-  renderCards(createObjectCard(item, "#template-elements__element"), cardElements);
+  renderCards(
+    createObjectCard(item, "#template-elements__element"),
+    cardElements
+  );
 });
 buttonOpenEditProfilePopup.addEventListener("click", function () {
   setPopupInputValue();
@@ -84,9 +87,6 @@ buttonOpenAddCardPopup.addEventListener("click", function () {
 popups.forEach(function (popup) {
   popup.addEventListener("click", handleCloseByClick);
 });
-formList.forEach(function (formElement) {
-  const newValidityForm = new FormValidator(settingsOptions, formElement);
-  newValidityForm.enableValidation();
-});
+
 formEditElement.addEventListener("submit", submitEditProfileForm);
 formAddElement.addEventListener("submit", submitAddCardForm);
