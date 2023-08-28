@@ -16,8 +16,8 @@ const cardElements = root.querySelector(".elements");
 
 import { Card } from "./Card.js";
 import { FormValidator } from "./FormValidator.js";
-import { initialCards, settingsOptions } from "./data.js";
-import { openPopup, closePopup } from "./utils.js";
+import { initialCards, settingsOptions } from "../utils/data.js";
+import { openPopup, closePopup } from "../utils/utils.js";
 
 const newValidityEditForm = new FormValidator(settingsOptions, formEditElement);
 newValidityEditForm.enableValidation();
