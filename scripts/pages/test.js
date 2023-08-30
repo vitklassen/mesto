@@ -47,7 +47,6 @@ handleFormSubmit: (formData) => {
   const newSection = renderSection();
   newSection.addItem(newCard.createCard());
   newValidityAddForm.disableSubmitButton();
-  popupWithAddForm.close();
 }, blockData: () => {
   newValidityAddForm.disableSubmitButton();
 }
@@ -60,7 +59,6 @@ buttonOpenEditProfilePopup.addEventListener('click', function() {
 buttonOpenAddCardPopup.addEventListener('click', function() {
   popupWithAddForm.open();
   popupWithAddForm.setEventListeners();
- 
 });
 
 function createCard(data) {
