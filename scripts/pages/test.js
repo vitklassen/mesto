@@ -23,42 +23,53 @@ const nameCardInput = formAddElement.querySelector(".popup__input_name_name");
 const linkCardInput = formAddElement.querySelector(".popup__input_name_link");
 const cardElements = root.querySelector(".elements");
 
-
-
 function renderSection() {
-  const newSection = new Section({items: []}, ".elements");
+  const newSection = new Section({ items: [] }, ".elements");
   return newSection;
 }
+
+const initialuserInfo = new UserInfo({}, ".profile__name", ".profile__job");
 
 const newValidityEditForm = new FormValidator(settingsOptions, formEditElement);
 newValidityEditForm.enableValidation();
 const newValidityAddForm = new FormValidator(settingsOptions, formAddElement);
 newValidityAddForm.enableValidation();
 
-const popupWithEditForm = new PopupWithForm({popupSelector: ".popup_type_edit", handleFormSubmit: (formData) => {
-  const userInfo = new UserInfo({name: formData.firstname, job: formData.job});
-  userInfo.getUserInfo();
-  userInfo.setUserInfo();
-}})
-
-const popupWithAddForm = new PopupWithForm({popupSelector: ".popup_type_add", 
-handleFormSubmit: (formData) => {
-  const newCard = createCard(formData);
-  const newSection = renderSection();
-  newSection.addItem(newCard.createCard());
-  newValidityAddForm.disableSubmitButton();
-}, blockData: () => {
-  newValidityAddForm.disableSubmitButton();
-}
+const popupWithEditForm = new PopupWithForm({
+  popupSelector: ".popup_type_edit",
+  handleFormSubmit: (formData) => {
+    const userInfo = new UserInfo(
+      { firstname: formData.firstname, job: formData.job },
+      ".profile__name",
+      ".profile__job"
+    );
+    userInfo.setUserInfo();
+  },
 });
 
-buttonOpenEditProfilePopup.addEventListener('click', function() {
-  popupWithEditForm.setEventListeners();
+popupWithEditForm.setEventListeners();
+
+const popupWithAddForm = new PopupWithForm({
+  popupSelector: ".popup_type_add",
+  handleFormSubmit: (formData) => {
+    const newCard = createCard(formData);
+    const newSection = renderSection();
+    newSection.addItem(newCard.createCard());
+    newValidityAddForm.disableSubmitButton();
+  },
+  protectFromBadData: () => {
+    newValidityAddForm.disableSubmitButton();
+  },
+});
+popupWithAddForm.setEventListeners();
+
+buttonOpenEditProfilePopup.addEventListener("click", function () {
+  initialuserInfo.getUserInfo();
   popupWithEditForm.open();
 });
-buttonOpenAddCardPopup.addEventListener('click', function() {
+
+buttonOpenAddCardPopup.addEventListener("click", function () {
   popupWithAddForm.open();
-  popupWithAddForm.setEventListeners();
 });
 
 function createCard(data) {
