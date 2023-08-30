@@ -1,4 +1,4 @@
-export class FormValidator {
+export default class FormValidator {
   constructor(data, form) {
     this._formSelector = data.formSelector;
     this._inputSelector = data.inputSelector;
@@ -61,5 +61,9 @@ export class FormValidator {
     errorElement.classList.remove(this._errorClass);
     inputElement.classList.remove(this._inputErrorClass);
     errorElement.textContent = "1";
+  }
+  resetError() {
+    const spanArray = this._form.querySelectorAll('.popup__error');
+    
   }
 }

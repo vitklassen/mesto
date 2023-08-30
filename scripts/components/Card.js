@@ -1,5 +1,5 @@
 import { openPopup } from "../utils/utils.js";
-export class Card {
+export default class Card {
   constructor(data, templateSelector) {
     this._name = data.name;
     this._link = data.link;
@@ -7,7 +7,7 @@ export class Card {
   }
   _getTemplate() {
     const templateElement = document
-      .querySelector(this._templateSelector)
+      .getElementById(this._templateSelector)
       .content.querySelector(".elements__element")
       .cloneNode(true);
 
@@ -47,8 +47,8 @@ export class Card {
     this._cardElement
       .querySelector(".elements__like-button")
       .addEventListener("click", this._setLike.bind(this));
-    this._cardElement
+    /*this._cardElement
       .querySelector(".elements__photo")
-      .addEventListener("click", this._setEventListenersForPhotoElement.bind(this));
+      .addEventListener("click", this._setEventListenersForPhotoElement.bind(this));*/
   }
 }
