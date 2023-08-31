@@ -62,8 +62,4 @@ export default class FormValidator {
     inputElement.classList.remove(this._inputErrorClass);
     errorElement.textContent = "1";
   }
-  resetError() {
-    const spanArray = this._form.querySelectorAll('.popup__error');
-    
-  }
 }
