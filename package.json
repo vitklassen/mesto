@@ -1,0 +1,14 @@
+{
+  "name": "mesto",
+  "version": "1.0.0",
+  "description": "Данный проект представляет собой интерактивную страницу, куда можно будет добавлять фотографии,удалять их и ставить лайки.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "webpack": "^5.88.2"
+  }
+}
