@@ -5,6 +5,7 @@ import PopupWithImage from "./scripts/components/PopupWithImage.js";
 import PopupWithForm from "./scripts/components/PopupWithForm.js";
 import UserInfo from "./scripts/components/UserInfo.js";
 import { initialCards, settingsOptions } from "./scripts/utils/data.js";
+import './pages/index.css';
 
 const buttonOpenEditProfilePopup = document.querySelector(
   ".profile__edit-button"
