@@ -5,7 +5,7 @@ import PopupWithImage from "../components/PopupWithImage.js";
 import PopupWithForm from "../components/PopupWithForm.js";
 import UserInfo from "../components/UserInfo.js";
 import { initialCards, settingsOptions } from "../constants/data.js";
-import './index.css';
+import "./index.css";
 
 const buttonOpenEditProfilePopup = document.querySelector(
   ".profile__edit-button"
@@ -20,14 +20,19 @@ const jobInput = document.querySelector(".popup__input_name_job");
 
 const userInfo = new UserInfo(".profile__name", ".profile__job");
 
-const newSection = new Section({renderer: (item) => {const initialCard = createCard(item);
-  newSection.addItem(initialCard.createCard());
-}}, ".elements");
+const newSection = new Section(
+  {
+    renderer: (item) => {
+      const initialCard = createCard(item);
+      newSection.addItem(initialCard.createCard());
+    },
+  },
+  ".elements"
+);
 
 const newValidityEditForm = new FormValidator(settingsOptions, formEditElement);
 
 const newValidityAddForm = new FormValidator(settingsOptions, formAddElement);
-
 
 const popupWithEditForm = new PopupWithForm({
   popupSelector: ".popup_type_edit",
