@@ -31,13 +31,14 @@ const newSection = new Section(
 );
 
 const newValidityEditForm = new FormValidator(settingsOptions, formEditElement);
-
+newValidityEditForm.enableValidation();
 const newValidityAddForm = new FormValidator(settingsOptions, formAddElement);
+newValidityAddForm.enableValidation();
 
 const popupWithEditForm = new PopupWithForm({
   popupSelector: ".popup_type_edit",
   handleFormSubmit: (formData) => {
-    userInfo.setUserInfo(formData.firstname, formData.job);
+    userInfo.setUserInfo(formData);
   },
   protectFromBadData: () => {
     return;
@@ -63,13 +64,13 @@ const popupWithImage = new PopupWithImage(".popup_type_card");
 popupWithImage.setEventListeners();
 
 buttonOpenEditProfilePopup.addEventListener("click", function () {
-  userInfo.getUserInfo(nameInput, jobInput);
-  newValidityEditForm.enableValidation();
+  const currentUserInfo = userInfo.getUserInfo();
+  nameInput.value = currentUserInfo.userName;
+  jobInput.value= currentUserInfo.userJob;
   popupWithEditForm.open();
 });
 
 buttonOpenAddCardPopup.addEventListener("click", function () {
-  newValidityAddForm.enableValidation();
   popupWithAddForm.open();
 });
 
