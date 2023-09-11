@@ -11,6 +11,7 @@
     background-position: center;
     background-size: 100%;
     flex-shrink: 0;
+    margin-bottom: 3px;
 }
 .elements__like-button:hover {
     opacity: 0.5;

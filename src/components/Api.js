@@ -69,4 +69,14 @@ export default class Api {
             })
         })
     }
+
+    deleteCard(id) {
+        fetch(`${this._url}cards`, {
+            method: 'DELETE',
+            headers: {
+                authorization: this._token,
+                'Content-Type': this._header
+            }
+        })
+    }
 }

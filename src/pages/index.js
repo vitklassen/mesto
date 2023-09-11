@@ -8,6 +8,7 @@ import UserInfo from "../components/UserInfo.js";
 import Api from "../components/Api.js";
 import { settingsOptions, cardSettings } from "../constants/data.js";
 import "./index.css";
+import PopupWithConfirm from "../components/PopupWithConfirm.js";
 
 //константы
 const buttonOpenEditProfilePopup = document.querySelector(
@@ -23,6 +24,7 @@ const jobInput = document.querySelector(".popup__input_name_job");
 const profileName = document.querySelector(".profile__name");
 const profileJob = document.querySelector(".profile__job");
 const profileAvatar = document.querySelector(".profile__avatar");
+const profileID = '';
 //экземпляр класса Api
 const newApi = new Api(cardSettings);
 
@@ -38,6 +40,7 @@ newApi.getUserInfo()
   profileName.textContent = userInfoObject.name;
   profileJob.textContent = userInfoObject.about;
   profileAvatar.src = userInfoObject.avatar;
+  profileID = userInfoObject._id;
 })
 
 //экземпляр класса UserInfo
@@ -116,6 +119,17 @@ function createCard(data) {
     handleCardClick: () => {
       popupWithImage.open(data);
     },
+    handleOpenPopup: () => {
+      popupWithConfirm.open();
+      popupWithConfirm.getCallback(data);
+      popupWithConfirm.setEventListener();
+    }
   });
   return card;
 }
+
+const popupWithConfirm = new PopupWithConfirm({popupSelector: '.popup_type_delete-card', 
+handleDeleteCard(id) {
+  newApi.deleteCard(id);
+}
+});
