@@ -24,7 +24,7 @@ const jobInput = document.querySelector(".popup__input_name_job");
 const profileName = document.querySelector(".profile__name");
 const profileJob = document.querySelector(".profile__job");
 const profileAvatar = document.querySelector(".profile__avatar");
-const profileID = '';
+let profileId = '';
 //экземпляр класса Api
 const newApi = new Api(cardSettings);
 
@@ -40,7 +40,7 @@ newApi.getUserInfo()
   profileName.textContent = userInfoObject.name;
   profileJob.textContent = userInfoObject.about;
   profileAvatar.src = userInfoObject.avatar;
-  profileID = userInfoObject._id;
+  profileId = userInfoObject._id;
 })
 
 //экземпляр класса UserInfo
@@ -82,10 +82,12 @@ popupWithEditForm.setEventListeners();
 const popupWithAddForm = new PopupWithForm({
   popupSelector: ".popup_type_add",
   handleFormSubmit: (formData) => {
-    const newCard = createCard(formData);
-    newApi.addNewCard(formData);
-    newSection.addItem(newCard.createCard());
-    newValidityAddForm.disableSubmitButton();
+    newApi.addNewCard(formData)
+    .then((card) => {
+      const newCard = createCard(card);
+      newSection.addItem(newCard.createCard());
+      newValidityAddForm.disableSubmitButton();
+    });
   },
   protectFromBadData: () => {
     newValidityAddForm.disableSubmitButton();
@@ -98,6 +100,12 @@ popupWithAddForm.setEventListeners();
 //экземпляр класса popupWithImage
 const popupWithImage = new PopupWithImage(".popup_type_card");
 popupWithImage.setEventListeners();
+
+const popupWithConfirm = new PopupWithConfirm({popupSelector: '.popup_type_delete-card', 
+handleDeleteCard: (id) => {
+  newApi.deleteCard(id);
+}
+})
 
 //слушатель клика для кнопки редактирования профиля
 buttonOpenEditProfilePopup.addEventListener("click", function () {
@@ -114,22 +122,16 @@ buttonOpenAddCardPopup.addEventListener("click", function () {
 
 //функция для создания новой карточки
 function createCard(data) {
-  const card = new Card(data, {
+  const card = new Card(data, profileId, {
     templateSelector: "template-elements__element",
     handleCardClick: () => {
       popupWithImage.open(data);
     },
-    handleOpenPopup: () => {
-      popupWithConfirm.open();
-      popupWithConfirm.getCallback(data);
+    handleOpenPopup: (id) => {
+      popupWithConfirm.open(id);
       popupWithConfirm.setEventListener();
     }
   });
   return card;
 }
 
-const popupWithConfirm = new PopupWithConfirm({popupSelector: '.popup_type_delete-card', 
-handleDeleteCard(id) {
-  newApi.deleteCard(id);
-}
-});

@@ -57,7 +57,7 @@ export default class Api {
     }
 
     addNewCard(newCard) {
-        fetch(`${this._url}cards`, {
+        return fetch(`${this._url}cards`, {
             method: 'POST',
             headers: {
                 authorization: this._token,
@@ -68,10 +68,19 @@ export default class Api {
                 link: newCard.link
             })
         })
+        .then((response) => {
+            if(response.ok) {
+                return response.json();
+            }
+            throw new Error('Что-то пошло не так...');
+        })
+        .catch((error) => {
+            console.log(error.status, error.statusText);
+        })
     }
 
     deleteCard(id) {
-        fetch(`${this._url}cards`, {
+        fetch(`${this._url}cards/${id}`, {
             method: 'DELETE',
             headers: {
                 authorization: this._token,
@@ -79,4 +88,9 @@ export default class Api {
             }
         })
     }
+
+    addLike(id) {
+        
+    }
+
 }
