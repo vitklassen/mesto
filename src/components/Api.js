@@ -42,6 +42,10 @@ export default class Api {
         })
     }
 
+    getAllNeededData() {
+        return Promise.all([this.getUserInfo(), this.getAllCards()]);
+    }
+
     setUserInfo(userInfo) {
         fetch(`${this._url}users/me`, {
             method: 'PATCH',
@@ -80,7 +84,7 @@ export default class Api {
     }
 
     deleteCard(id) {
-        fetch(`${this._url}cards/${id}`, {
+        return fetch(`${this._url}cards/${id}`, {
             method: 'DELETE',
             headers: {
                 authorization: this._token,
@@ -90,7 +94,41 @@ export default class Api {
     }
 
     addLike(id) {
-        
+        return fetch(`${this._url}cards/${id}/likes`, {
+            method: 'PUT',
+            headers: {
+                authorization: this._token,
+                'Content-Type': this._header
+            }
+        })
+        .then((response) => {
+            if(response.ok) {
+                return response.json();
+            }
+            throw new Error('Что-то пошло не так...');
+        })
+        .catch((error) => {
+            console.log(error.status, error.statusText);
+        })
+    }
+
+    deleteLike(id) {
+        return fetch(`${this._url}cards/${id}/likes`, {
+            method: 'DELETE',
+            headers: {
+                authorization: this._token,
+                'Content-Type': this._header
+            }
+        })
+        .then((response) => {
+            if(response.ok) {
+                return response.json();
+            }
+            throw new Error('Что-то пошло не так...');
+        })
+        .catch((error) => {
+            console.log(error.status, error.statusText);
+        })
     }
 
 }

@@ -1,5 +1,5 @@
 export default class Card {
-  constructor(data, userId, { templateSelector, handleCardClick, handleOpenPopup }) {
+  constructor(data, userId, { templateSelector, handleCardClick, handleDeleteIconClick , handleLikeClick}) {
     this._name = data.name;
     this._link = data.link;
     this._likeCount = data.likes;
@@ -8,7 +8,8 @@ export default class Card {
     this._userId = userId;
     this._templateSelector = templateSelector;
     this._handleCardClick = handleCardClick;
-    this._handleOpenPopup = handleOpenPopup;
+    this._handleDeleteIconClick = handleDeleteIconClick;
+    this._handleLikeClick = handleLikeClick;
   }
   _getTemplate() {
     const templateElement = document
@@ -25,16 +26,24 @@ export default class Card {
     this._cardElement.querySelector(".elements__photo").alt = this._name;
     this._cardElement.querySelector(".elements__title").textContent =
       this._name;
-    this._cardElement.querySelector(".elements__like-count").textContent = this._likeCount.length;
+      this.countNumberOfLikes(this._likeCount);
     return this._cardElement;
   }
   _handleClickBtnDelete() {
-    this._handleOpenPopup(this._id);
+    this._handleDeleteIconClick(this._id);
   }
   _setLike() {
-    this._cardElement
-      .querySelector(".elements__like-button")
-      .classList.toggle("elements__like-button_active");
+    if(this._cardElement
+      .querySelector(".elements__like-button").classList.contains('elements__like-button_active')) {
+        this._cardElement
+        .querySelector(".elements__like-button").classList.remove('elements__like-button_active');
+        this._handleLikeClick(this._id, false);
+      }
+      else {
+        this._cardElement
+        .querySelector(".elements__like-button").classList.add('elements__like-button_active');
+        this._handleLikeClick(this._id, true);
+      }
   }
   _setEventListeners() {
     if(this._checkOwnerCard()) {
@@ -54,12 +63,11 @@ export default class Card {
       .addEventListener("click", this._handleCardClick.bind(this));
   }
   _checkOwnerCard() {
-    if(this._userId === this._ownerIdCard) {
-      return true;
-    }
-    else {
-      return false;
-    }
+    return (this._userId === this._ownerIdCard)
+  }
+
+  countNumberOfLikes(likes) {
+    this._cardElement.querySelector(".elements__like-count").textContent = likes.length;
   }
   removeCard() {
     this._cardElement.remove();
