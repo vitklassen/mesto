@@ -80,10 +80,10 @@
     <div class="popup__container popup__container_type_edit-avatar">
       <button class="popup__close-button" type="button"></button>
       <h2 class="popup__title popup__title_type_edit-avatar">Обновить аватар</h2>
-      <form class="popup__form popup__form_type_add" name="userForm" method="post" novalidate>
+      <form class="popup__form popup__form_type_edit-avatar" name="userForm" method="post" novalidate>
         <label class="popup__form-field">
-          <input class="popup__input popup__input_name_link" type="url" name="link" placeholder="Ссылка на картинку" id="link" required>
-          <span class="popup__error link-error">1</span>
+          <input class="popup__input popup__input_name_avatarLink" type="url" name="avatarLink" placeholder="Ссылка на новое фото" id="avatarLink" required>
+          <span class="popup__error avatarLink-error">1</span>
         </label>
         <button class="popup__save-button button-style" type="submit">Сохранить</button>
       </form>

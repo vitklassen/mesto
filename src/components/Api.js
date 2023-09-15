@@ -131,4 +131,26 @@ export default class Api {
         })
     }
 
+    editAvatar(url) {
+       return fetch(`${this._url}users/me/avatar`, {
+            method: 'PATCH',
+            headers: {
+                authorization: this._token,
+                'Content-Type': this._header
+            },
+            body: JSON.stringify({
+                avatar: url
+            })
+        })
+        .then((response) => {
+            if(response.ok) {
+                return response.json();
+            }
+            throw new Error('Что-то пошло не так...');
+        })
+        .catch((error) => {
+            console.log(error.status, error.statusText);
+        })
+    }
+
 }

@@ -15,8 +15,10 @@ export default class UserInfo {
         this._jobElement.textContent = data.job;
     }
     setUserInfoFromApi(dataFromApi) {
-        this._nameElement.textContent = dataFromApi.name;
-        this._jobElement.textContent = dataFromApi.about;
+        if(dataFromApi.name != undefined && dataFromApi.about != undefined) {
+            this._nameElement.textContent = dataFromApi.name;
+            this._jobElement.textContent = dataFromApi.about;
+        }
         this._avatarElement.src = dataFromApi.avatar;
     }
 }

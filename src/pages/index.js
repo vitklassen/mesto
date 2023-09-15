@@ -15,12 +15,12 @@ const buttonOpenEditProfilePopup = document.querySelector(
   ".profile__edit-button"
 );
 const buttonOpenAddCardPopup = document.querySelector(".profile__add-button");
-const popupEditProfile = document.querySelector(".popup_type_edit");
-const formEditElement = popupEditProfile.querySelector(".popup__form");
-const popupAddCard = document.querySelector(".popup_type_add");
-const formAddElement = popupAddCard.querySelector(".popup__form");
+const formEditElement = document.querySelector(".popup__form_type_edit");
+const formAddElement = document.querySelector(".popup__form_type_add");
+const formEditAvatarElement = document.querySelector(".popup__form_type_edit-avatar");
 const nameInput = document.querySelector(".popup__input_name_firstname");
 const jobInput = document.querySelector(".popup__input_name_job");
+const userAvatar = document.querySelector(".profile__avatar");
 
 const userInfo = new UserInfo(
   ".profile__name",
@@ -32,6 +32,8 @@ const newValidityEditForm = new FormValidator(settingsOptions, formEditElement);
 
 const newValidityAddForm = new FormValidator(settingsOptions, formAddElement);
 
+const newValidityEditAvatarForm = new FormValidator(settingsOptions, formEditAvatarElement);
+
 const popupWithImage = new PopupWithImage(".popup_type_card");
 
 const api = new Api(serverSettings);
@@ -39,10 +41,10 @@ const api = new Api(serverSettings);
 api
   .getAllNeededData()
   .then((response) => {
-    popupWithImage.setEventListeners();
     const [responseFromFirstPromise, responseFromSecondPromise] = response;
     const profileId = responseFromFirstPromise._id;
     userInfo.setUserInfoFromApi(responseFromFirstPromise);
+
     const section = new Section(
       {
         renderer: (item) => {
@@ -53,35 +55,14 @@ api
       ".elements"
     );
     section.render(responseFromSecondPromise);
+
     const popupWithConfirm = new PopupWithConfirm({
       popupSelector: ".popup_type_delete-card",
       handleDeleteCard: (id) => {
         api.deleteCard(id);
       },
     });
-    const popupWithEditForm = new PopupWithForm({
-      popupSelector: ".popup_type_edit",
-      handleFormSubmit: (formData) => {
-        userInfo.setUserInfo(formData);
-        api.setUserInfo(formData);
-      },
-      protectFromBadData: () => {
-        return;
-      },
-    });
-    const popupWithAddForm = new PopupWithForm({
-      popupSelector: ".popup_type_add",
-      handleFormSubmit: (formData) => {
-        api.addNewCard(formData).then((card) => {
-          const newCard = createCard(card);
-          section.addItem(newCard.createCard());
-          newValidityAddForm.disableSubmitButton();
-        });
-      },
-      protectFromBadData: () => {
-        newValidityAddForm.disableSubmitButton();
-      },
-    });
+    
     function createCard(data) {
       const card = new Card(data, profileId, {
         templateSelector: "template-elements__element",
@@ -104,14 +85,14 @@ api
         handleLikeClick: (id, like) => {
           if(like) {
             api.addLike(id)
-            .then((likeArray) => {
-              card.countNumberOfLikes(likeArray.likes);
+            .then((cardArray) => {
+              card.countNumberOfLikes(cardArray.likes);
             })
           }
           else {
             api.deleteLike(id)
-            .then((likeArray) => {
-              card.countNumberOfLikes(likeArray.likes);
+            .then((cardArray) => {
+              card.countNumberOfLikes(cardArray.likes);
             })
           }
 
@@ -119,21 +100,69 @@ api
       });
       return card;
     }
-    return {popupAddForm: popupWithAddForm, popupEditForm: popupWithEditForm};
+    return {createCard: createCard, section: section};
   })
   .then(function (params) {
-    params.popupAddForm.setEventListeners();
-    params.popupEditForm.setEventListeners();
+    const popupWithEditForm = new PopupWithForm({
+      popupSelector: ".popup_type_edit",
+      handleFormSubmit: (formData) => {
+        userInfo.setUserInfo(formData);
+        api.setUserInfo(formData);
+      },
+      protectFromBadData: () => {
+        return;
+      },
+    });
+    const popupWithAddForm = new PopupWithForm({
+      popupSelector: ".popup_type_add",
+      handleFormSubmit: (formData) => {
+        api.addNewCard(formData).then((card) => {
+          const newCard = params.createCard(card);
+          params.section.addItem(newCard.createCard());
+          newValidityAddForm.disableSubmitButton();
+        });
+      },
+      protectFromBadData: () => {
+        newValidityAddForm.disableSubmitButton();
+      },
+    });
+    const popupWithEditAvatarForm = new PopupWithForm({
+      popupSelector: ".popup_type_edit-avatar",
+      handleFormSubmit: (formData) => {
+        api.editAvatar(formData.avatarLink)
+        .then((avatar) => {
+          userInfo.setUserInfoFromApi(avatar);
+          newValidityEditAvatarForm.disableSubmitButton();
+        })
+      },
+      protectFromBadData: () => {
+        newValidityEditAvatarForm.disableSubmitButton();
+      },
+    });
+    return {popupWithEditForm: popupWithEditForm, popupWithAddForm: popupWithAddForm, popupWithEditAvatarForm: popupWithEditAvatarForm};
+  })
+  .then((paramsPartTwo) => {
+    paramsPartTwo.popupWithEditForm.setEventListeners();
+    paramsPartTwo.popupWithAddForm.setEventListeners();
+    paramsPartTwo.popupWithEditAvatarForm.setEventListeners();
+    popupWithImage.setEventListeners();
     newValidityAddForm.enableValidation();
     newValidityEditForm.enableValidation();
+    newValidityEditAvatarForm.enableValidation();
+
     buttonOpenEditProfilePopup.addEventListener("click", function () {
       const currentUserInfo = userInfo.getUserInfo();
       nameInput.value = currentUserInfo.userName;
       jobInput.value = currentUserInfo.userJob;
-      params.popupEditForm.open();
+      paramsPartTwo.popupWithEditForm.open();
     });
 
     buttonOpenAddCardPopup.addEventListener("click", function () {
-      params.popupAddForm.open();
+      paramsPartTwo.popupWithAddForm.open();
     });
-  });
+
+    userAvatar.addEventListener("click", function () {
+      paramsPartTwo.popupWithEditAvatarForm.open();
+    })
+  })
+
