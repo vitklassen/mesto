@@ -39,7 +39,7 @@ const popupWithImage = new PopupWithImage(".popup_type_card");
 const api = new Api(serverSettings);
 
 api
-  .getAllNeededData()
+  .mainMethod()
   .then((response) => {
     const [responseFromFirstPromise, responseFromSecondPromise] = response;
     const profileId = responseFromFirstPromise._id;
@@ -59,7 +59,10 @@ api
     const popupWithConfirm = new PopupWithConfirm({
       popupSelector: ".popup_type_delete-card",
       handleDeleteCard: (id) => {
-        api.deleteCard(id);
+        api.deleteCard(id)
+        .catch((error) =>{
+          console.log(error)
+        });
       },
     });
     
@@ -76,8 +79,8 @@ api
             .then(() => {
               card.removeCard();
             })
-            .catch(() => {
-              console.log('Что-то не так...');
+            .catch((error) => {
+              console.log(error);
             })
           })
           popupWithConfirm.setEventListener();
@@ -88,14 +91,19 @@ api
             .then((cardArray) => {
               card.countNumberOfLikes(cardArray.likes);
             })
+            .catch((error) => {
+              console.log(error);
+            })
           }
           else {
             api.deleteLike(id)
             .then((cardArray) => {
               card.countNumberOfLikes(cardArray.likes);
             })
+            .catch((error) => {
+              console.log(error);
+            })
           }
-
         }
       });
       return card;
@@ -107,7 +115,10 @@ api
       popupSelector: ".popup_type_edit",
       handleFormSubmit: (formData) => {
         userInfo.setUserInfo(formData);
-        api.setUserInfo(formData);
+        api.setUserInfo(formData)
+        .catch((error) => {
+          console.log(error);
+        });
       },
       protectFromBadData: () => {
         return;
@@ -116,10 +127,14 @@ api
     const popupWithAddForm = new PopupWithForm({
       popupSelector: ".popup_type_add",
       handleFormSubmit: (formData) => {
-        api.addNewCard(formData).then((card) => {
+        api.addNewCard(formData)
+        .then((card) => {
           const newCard = params.createCard(card);
           params.section.addItem(newCard.createCard());
           newValidityAddForm.disableSubmitButton();
+        })
+        .catch((error) => {
+          console.log(error);
         });
       },
       protectFromBadData: () => {
@@ -133,6 +148,9 @@ api
         .then((avatar) => {
           userInfo.setUserInfoFromApi(avatar);
           newValidityEditAvatarForm.disableSubmitButton();
+        })
+        .catch((error) => {
+          console.log(error);
         })
       },
       protectFromBadData: () => {

@@ -4,14 +4,9 @@ export default class Api {
         this._header = header;
         this._token = token;
     }   
-    getAllCards() {
-        return fetch(`${this._url}cards`, {
-            method: 'GET',
-            headers: {
-                authorization: this._token,
-                'Content-Type': this._header
-            }
-        })
+
+    _sendRequest(url, options) {
+        return fetch(url, options)
         .then((response) => {
             if(response.ok) {
                 return response.json();
@@ -20,34 +15,34 @@ export default class Api {
         })
         .catch((error) => {
             console.log(error.status, error.statusText);
+        })
+    }
+    getAllCards() {
+        return this._sendRequest(`${this._url}cards`, {
+            method: 'GET',
+            headers: {
+                authorization: this._token,
+                'Content-Type': this._header
+            }
         })
     }
 
     getUserInfo() {
-        return fetch(`${this._url}users/me`, {
+        return this._sendRequest(`${this._url}users/me`, {
             method: 'GET',
             headers: {
                 authorization: this._token,
                 'Content-Type': this._header
             }
         })
-        .then((response) => {
-            if(response.ok) {
-                return response.json();
-            }
-            throw new Error('Что-то пошло не так...');
-        })
-        .catch((error) => {
-            console.log(error.status, error.statusText);
-        })
     }
 
-    getAllNeededData() {
+    mainMethod() {
         return Promise.all([this.getUserInfo(), this.getAllCards()]);
     }
 
     setUserInfo(userInfo) {
-        fetch(`${this._url}users/me`, {
+        return this._sendRequest(`${this._url}users/me`, {
             method: 'PATCH',
             headers: {
                 authorization: this._token,
@@ -61,7 +56,7 @@ export default class Api {
     }
 
     addNewCard(newCard) {
-        return fetch(`${this._url}cards`, {
+        return this._sendRequest(`${this._url}cards`, {
             method: 'POST',
             headers: {
                 authorization: this._token,
@@ -72,19 +67,10 @@ export default class Api {
                 link: newCard.link
             })
         })
-        .then((response) => {
-            if(response.ok) {
-                return response.json();
-            }
-            throw new Error('Что-то пошло не так...');
-        })
-        .catch((error) => {
-            console.log(error.status, error.statusText);
-        })
     }
 
     deleteCard(id) {
-        return fetch(`${this._url}cards/${id}`, {
+        return this._sendRequest(`${this._url}cards/${id}`, {
             method: 'DELETE',
             headers: {
                 authorization: this._token,
@@ -94,45 +80,27 @@ export default class Api {
     }
 
     addLike(id) {
-        return fetch(`${this._url}cards/${id}/likes`, {
+        return this._sendRequest(`${this._url}cards/${id}/likes`, {
             method: 'PUT',
             headers: {
                 authorization: this._token,
                 'Content-Type': this._header
             }
         })
-        .then((response) => {
-            if(response.ok) {
-                return response.json();
-            }
-            throw new Error('Что-то пошло не так...');
-        })
-        .catch((error) => {
-            console.log(error.status, error.statusText);
-        })
     }
 
     deleteLike(id) {
-        return fetch(`${this._url}cards/${id}/likes`, {
+        return this._sendRequest(`${this._url}cards/${id}/likes`, {
             method: 'DELETE',
             headers: {
                 authorization: this._token,
                 'Content-Type': this._header
             }
         })
-        .then((response) => {
-            if(response.ok) {
-                return response.json();
-            }
-            throw new Error('Что-то пошло не так...');
-        })
-        .catch((error) => {
-            console.log(error.status, error.statusText);
-        })
     }
 
     editAvatar(url) {
-       return fetch(`${this._url}users/me/avatar`, {
+       return this._sendRequest(`${this._url}users/me/avatar`, {
             method: 'PATCH',
             headers: {
                 authorization: this._token,
@@ -141,15 +109,6 @@ export default class Api {
             body: JSON.stringify({
                 avatar: url
             })
-        })
-        .then((response) => {
-            if(response.ok) {
-                return response.json();
-            }
-            throw new Error('Что-то пошло не так...');
-        })
-        .catch((error) => {
-            console.log(error.status, error.statusText);
         })
     }
 
