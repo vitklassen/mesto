@@ -20,7 +20,7 @@ const formAddElement = document.querySelector(".popup__form_type_add");
 const formEditAvatarElement = document.querySelector(".popup__form_type_edit-avatar");
 const nameInput = document.querySelector(".popup__input_name_firstname");
 const jobInput = document.querySelector(".popup__input_name_job");
-const userAvatar = document.querySelector(".profile__avatar");
+const buttonEditAvatar = document.querySelector(".profile__edit-avatar-button");
 
 const userInfo = new UserInfo(
   ".profile__name",
@@ -179,7 +179,7 @@ api
       paramsPartTwo.popupWithAddForm.open();
     });
 
-    userAvatar.addEventListener("click", function () {
+    buttonEditAvatar.addEventListener("click", function () {
       paramsPartTwo.popupWithEditAvatarForm.open();
     })
   })

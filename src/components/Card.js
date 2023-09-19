@@ -21,12 +21,13 @@ export default class Card {
   }
   createCard() {
     this._cardElement = this._getTemplate();
-    this._setEventListeners();
     this._cardElement.querySelector(".elements__photo").src = this._link;
     this._cardElement.querySelector(".elements__photo").alt = this._name;
     this._cardElement.querySelector(".elements__title").textContent =
       this._name;
       this.countNumberOfLikes(this._likeCount);
+      this._setEventListeners();
+      this._checkLikeButton();
     return this._cardElement;
   }
   _handleClickBtnDelete() {
@@ -64,6 +65,14 @@ export default class Card {
   }
   _checkOwnerCard() {
     return (this._userId === this._ownerIdCard)
+  }
+  _checkLikeButton() {
+    this._likeCount.forEach((like) => {
+      if(like._id === this._userId) {
+        this._cardElement
+      .querySelector(".elements__like-button").classList.add('elements__like-button_active');
+      }
+    })
   }
 
   countNumberOfLikes(likes) {
