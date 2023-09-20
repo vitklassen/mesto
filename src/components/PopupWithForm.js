@@ -17,19 +17,31 @@ export default class PopupWithForm extends Popup {
 
     return this._formValues;
   }
-  _isLoading(param) {
+  isLoading(param, typePopup) {
     if(param) {
-      this._saveButton.textContent = "Сохранение...";
+      switch(typePopup){
+        case 'add':
+          this._saveButton.textContent = "Создание...";
+          break;
+        case 'edit':
+          this._saveButton.textContent = "Сохранение...";
+          break;
+      }
     }
     else {
-      this._saveButton.textContent = "Сохранить";
+      switch(typePopup){
+        case 'add':
+          this._saveButton.textContent = "Создать";
+          break;
+        case 'edit':
+          this._saveButton.textContent = "Сохранить";
+          break;
+      }
     }
   }
   setEventListeners() {
     this._form.addEventListener("submit", () => {
-      this._isLoading(true);
       this._handleFormSubmit(this._getInputValues());
-      this._isLoading(false);
     });
     super.setEventListeners();
   }

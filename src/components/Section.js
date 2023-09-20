@@ -7,6 +7,8 @@ export default class Section{
         this._container.prepend(element);
     }
     render(cards) {
-        cards.forEach(item => this._renderer(item));
+        for(let i = cards.length - 1; i >= 0; i--) {
+            this._renderer(cards[i]);
+        }
     }
 }

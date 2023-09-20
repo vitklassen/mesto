@@ -249,12 +249,16 @@ const popupWithEditForm = new PopupWithForm({
   popupSelector: ".popup_type_edit",
   handleFormSubmit: (formData) => {
     userInfo.setUserInfo(formData);
+    popupWithEditForm.isLoading(true, 'edit');
     api.setUserInfo(formData)
     .then(() => {
       popupWithEditForm.close();
     })
     .catch((error) => {
       console.log(error);
+    })
+    .finally(() => {
+      popupWithEditForm.isLoading(false, 'edit');
     });
   },
   protectFromBadData: () => {
@@ -265,6 +269,7 @@ const popupWithEditForm = new PopupWithForm({
 const popupWithAddForm = new PopupWithForm({
   popupSelector: ".popup_type_add",
   handleFormSubmit: (formData) => {
+    popupWithAddForm.isLoading(true, 'add');
     api
       .addNewCard(formData)
       .then((card) => {
@@ -275,7 +280,11 @@ const popupWithAddForm = new PopupWithForm({
       })
       .catch((error) => {
         console.log(error);
+      })
+      .finally(() => {
+        popupWithAddForm.isLoading(false, 'add');
       });
+    
   },
   protectFromBadData: () => {
     newValidityAddForm.disableSubmitButton();
@@ -285,6 +294,7 @@ const popupWithAddForm = new PopupWithForm({
 const popupWithEditAvatarForm = new PopupWithForm({
   popupSelector: ".popup_type_edit-avatar",
   handleFormSubmit: (formData) => {
+    popupWithEditAvatarForm.isLoading(true, 'edit');
     api
       .editAvatar(formData.avatarLink)
       .then((avatar) => {
@@ -294,6 +304,9 @@ const popupWithEditAvatarForm = new PopupWithForm({
       })
       .catch((error) => {
         console.log(error);
+      })
+      .finally(() => {
+        popupWithEditAvatarForm.isLoading(false, 'edit');
       });
   },
   protectFromBadData: () => {
