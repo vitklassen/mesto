@@ -13,9 +13,6 @@ export default class Api {
             }
             throw new Error('Что-то пошло не так...');
         })
-        .catch((error) => {
-            console.log(error.status, error.statusText);
-        })
     }
     getAllCards() {
         return this._sendRequest(`${this._url}cards`, {
@@ -37,7 +34,7 @@ export default class Api {
         })
     }
 
-    mainMethod() {
+    getAllData() {
         return Promise.all([this.getUserInfo(), this.getAllCards()]);
     }
 
